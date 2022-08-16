@@ -1,22 +1,17 @@
 package isogram
 
 import (
-	"fmt"
-	"strings"
 	"unicode"
 )
 
 func IsIsogram(word string) bool {
-	charsReplace := []string{" ", "-"}
-	for _, charReplace := range charsReplace {
-		word = strings.ReplaceAll(word, charReplace, "")
-	}
-
 	letters := make(map[rune]struct{})
 	type empty struct{}
 	for _, char := range word {
+		if string(char) == " " || string(char) == "-" {
+			continue
+		}
 		lowerChar := unicode.ToLower(char)
-		fmt.Println(lowerChar)
 		_, exists := letters[lowerChar]
 		if exists {
 			return false
