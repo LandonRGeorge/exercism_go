@@ -6,11 +6,10 @@ import (
 
 func IsIsogram(word string) bool {
 	letters := make(map[string]struct{})
-	wordLower := strings.ToLower(word)
 	type empty struct{}
 	var charString string
-	for _, char := range wordLower {
-		charString = string(char)
+	for _, char := range word {
+		charString = strings.ToLower(string(char))
 		if charString == "-" || charString == " " {
 			continue
 		}
