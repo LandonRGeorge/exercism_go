@@ -6,9 +6,11 @@ import (
 	"strings"
 )
 
-func getNumberParts(ph string) (areaCode string, exchCode string, subNbr string) {
-	return ph[:3], ph[3:6], ph[6:]
-
+func getNumberParts(ph string) (string, string, string) {
+	areaCode := ph[:3]
+	exchangeCode := ph[3:6]
+	subscriberNbr := ph[6:]
+	return areaCode, exchangeCode, subscriberNbr
 }
 
 func Number(phoneNumber string) (string, error) {
@@ -18,12 +20,12 @@ func Number(phoneNumber string) (string, error) {
 	if len(s) != 10 {
 		return "", fmt.Errorf("not 10 digits")
 	}
-	areaCode, exchCode, _ := getNumberParts(s)
+	areaCode, exchangeCode, _ := getNumberParts(s)
 
 	if areaCode[0] == '0' {
 		return "", fmt.Errorf("area code cannot start with 0")
 	}
-	if exchCode[0] == '0' || exchCode[0] == '1' {
+	if exchangeCode[0] == '0' || exchangeCode[0] == '1' {
 		return "", fmt.Errorf("exchange code cannot start with 0 or 1")
 	}
 
@@ -44,7 +46,7 @@ func Format(phoneNumber string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	areaCode, exchCode, subNbr := getNumberParts(ph)
-	fph := fmt.Sprintf("(%s) %s-%s", areaCode, exchCode, subNbr)
+	areaCode, exchangeCode, subscriberNbr := getNumberParts(ph)
+	fph := fmt.Sprintf("(%s) %s-%s", areaCode, exchangeCode, subscriberNbr)
 	return fph, nil
 }
