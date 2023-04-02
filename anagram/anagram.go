@@ -1,29 +1,28 @@
 package anagram
 
 import (
-	"bytes"
 	"sort"
 	"strings"
-	"unicode/utf8"
 )
 
-func runesToUTF8(rs []rune) []byte {
-	bs := make([]byte, len(rs)*utf8.UTFMax)
-
-	count := 0
-	for _, r := range rs {
-		count += utf8.EncodeRune(bs[count:], r)
-	}
-
-	return bs[:count]
-}
-
-func sorted(text string) []byte {
+func sorted(text string) []rune {
 	rs := []rune(text)
 	sort.Slice(rs, func(i, j int) bool {
 		return rs[i] < rs[j]
 	})
-	return runesToUTF8(rs)
+	return rs
+}
+
+func isEqual(a, b []rune) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := 0; i < len(a); i++ {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
 }
 
 func Detect(subject string, candidates []string) []string {
@@ -36,7 +35,7 @@ func Detect(subject string, candidates []string) []string {
 			continue
 		}
 		cSorted := sorted(cLower)
-		if !bytes.Equal(sSorted, cSorted) {
+		if !isEqual(sSorted, cSorted) {
 			continue
 		}
 		matching = append(matching, c)

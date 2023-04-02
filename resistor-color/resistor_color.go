@@ -16,7 +16,7 @@ var m = map[string]int{
 // Colors should return the list of all colors.
 func Colors() []string {
 	s := make([]string, 0, len(m))
-	for k, _ := range m {
+	for k := range m {
 		s = append(s, k)
 	}
 	return s
