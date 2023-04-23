@@ -1,4 +1,4 @@
-# Word Count
+ # Word Count
 
 Welcome to Word Count on Exercism's Go Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.

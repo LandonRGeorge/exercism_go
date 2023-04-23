@@ -1,22 +1,19 @@
 package wordcount
 
 import (
+	"regexp"
 	"strings"
-	"unicode"
 )
 
 type Frequency map[string]int
 
+var re = regexp.MustCompile(`\b[\w']+\b`)
+
 func WordCount(phrase string) Frequency {
 	freqMap := make(Frequency)
-	fields := strings.FieldsFunc(strings.ToLower(phrase), func(r rune) bool {
-		return unicode.IsSpace(r) || r == ','
-	})
-	for _, f := range fields {
-		f = strings.TrimFunc(f, func(r rune) bool {
-			return !(unicode.IsLetter(r) || unicode.IsDigit(r))
-		})
-		freqMap[f]++
+	strs := re.FindAllString(strings.ToLower(phrase), -1)
+	for _, str := range strs {
+		freqMap[str]++
 	}
 	return freqMap
 }
