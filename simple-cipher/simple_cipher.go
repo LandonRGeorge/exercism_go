@@ -4,6 +4,16 @@ import (
 	"strings"
 )
 
+type caesar struct{}
+
+type shift struct {
+	distance int
+}
+
+type vigenere struct {
+	key string
+}
+
 func clean(input string) string {
 	input = strings.ToLower(input)
 	cleanFunc := func(r rune) rune {
