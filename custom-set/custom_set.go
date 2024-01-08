@@ -121,11 +121,11 @@ func Difference(s1, s2 Set) Set {
 
 func Union(s1, s2 Set) Set {
 	sAll := New()
-	ss := []Set{s1, s2}
-	for _, s := range ss {
-		for e := range s {
-			sAll.Add(e)
-		}
+	for e := range s1 {
+		sAll.Add(e)
+	}
+	for e := range s2 {
+		sAll.Add(e)
 	}
 	return sAll
 }
